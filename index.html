@@ -1088,6 +1088,9 @@
         const MASTER_PASS = "Godofdevil12";
         const MASTER_USER = "Godofdevil";
 
+        // Control de versión estricto para evitar caché en lectores
+        const APP_VERSION = "1.1.0"; // Incrementa este número (ej: 1.1.1, 1.2.0) cada vez que subas cambios
+
         const defaultDb = {
             textoBienvenida: "Tu plataforma favorita para leer las mejores traducciones y novelas web independientes.",
             paypalUser: "Godofdevil",
@@ -1182,6 +1185,16 @@
         };
 
         window.onload = function() {
+            // Verificar si la versión local del navegador coincide con la actual
+            const savedVersion = localStorage.getItem('cnovel_app_version');
+            if (savedVersion !== APP_VERSION) {
+                localStorage.setItem('cnovel_app_version', APP_VERSION);
+                if (savedVersion) {
+                    window.location.reload(true);
+                    return;
+                }
+            }
+
             if(!sessionStorage.getItem('visita_registrada')) {
                 db.estadisticas.visitasTotales = (db.estadisticas.visitasTotales || 0) + 1;
                 
