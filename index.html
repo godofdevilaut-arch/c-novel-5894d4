@@ -2982,8 +2982,54 @@
             }
         }
     </script>
+    <!-- Sistema de Persistencia con LocalStorage -->
+    <script>
+        const DB_KEY = 'cnovel_database_v1';
 
+        // Obtener la base de datos completa desde localStorage
+        function obtenerDatosGlobales() {
+            const datosGuardados = localStorage.getItem(DB_KEY);
+            if (!datosGuardados) {
+                // Estructura por defecto si es la primera vez que entra el usuario
+                const datosIniciales = {
+                    novelas: [
+                        {
+                            id: '1',
+                            titulo: 'El omega traicionado solo busca ser feliz',
+                            categoria: 'sistema',
+                            estado: 'En Traducción',
+                            portada: '', 
+                            capitulos: [
+                                { id: 'c1', numero: 1, titulo: 'Capítulo 1', contenido: 'Contenido de prueba del capítulo...' }
+                            ]
+                        }
+                    ],
+                    biblioteca: [], // IDs de novelas guardadas por el usuario
+                    adminLogueado: false
+                };
+                localStorage.setItem(DB_KEY, JSON.stringify(datosIniciales));
+                return datosIniciales;
+            }
+            return JSON.parse(datosGuardados);
+        }
 
+        // Guardar cambios en localStorage
+        function guardarDatosGlobales(datos) {
+            localStorage.setItem(DB_KEY, JSON.stringify(datos));
+        }
 
+        // Ejemplo para añadir una novela nueva (usado desde el Panel Admin)
+        function agregarNuevaNovela(nuevaNovela) {
+            const db = obtenerDatosGlobales();
+            db.novelas.push(nuevaNovela);
+            guardarDatosGlobales(db);
+            renderizarNovelas(); // Función para actualizar la interfaz visual
+        }
 
+        // Inicializar datos al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            const db = obtenerDatosGlobales();
+            console.log("Base de datos cargada correctamente:", db);
+        });
+    </script>
 </body></html>
