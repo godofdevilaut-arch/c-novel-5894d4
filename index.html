@@ -415,7 +415,7 @@
             <button onclick="showScreen('inicio')">Inicio</button>
             <button onclick="showScreen('categorias')">Categorías</button>
             <button onclick="showScreen('biblioteca')" id="nav-btn-biblio" style="display: inline-block;">📚 Mi Biblioteca</button>
-            <button onclick="showScreen('membresia')" id="nav-btn-vip-tab" style="display: inline-block;">👑 Membresía</button>
+            <button onclick="showScreen('membresia')" id="nav-btn-vip-tab" style="display: none;">👑 Membresía</button>
             <button onclick="showScreen('login')" id="btn-login-state">⚙️ Panel Admin</button>
             <div id="admin-mode-container" style="display:inline-block;"><button class="btn-admin-switch" onclick="alternarVistaAdminLector()">👑 Cambiar a Lector</button></div>
         </div>
@@ -1105,7 +1105,7 @@
                 </div>
                 <div style="display:flex; gap:10px;">
                     <button class="btn" style="background:#5f6368;" onclick="copiarDominioWeb()">📋 Copiar Enlace</button>
-                    <a id="admin-visit-link" href="https://godofdevil-cnovel.netlify.app?v=1784790489240" target="_blank" class="btn" style="text-decoration:none; text-align:center; background:#137333;">🌐 Visitar</a>
+                    <a id="admin-visit-link" href="https://godofdevil-cnovel.netlify.app?v=1784790666627" target="_blank" class="btn" style="text-decoration:none; text-align:center; background:#137333;">🌐 Visitar</a>
                 </div>
             </div>
             <p style="font-size:13px; color:var(--text-muted); margin-top:10px;">💡 <strong>Nota:</strong> Puedes cambiar este texto por tu propio dominio personalizado (ej. <i>https://tucorreo.com</i>) y se actualizará automáticamente en los accesos.</p>
@@ -1156,9 +1156,9 @@
 
     <div id="custom-modal-alert" class="custom-modal-overlay">
         <div class="custom-modal-content">
-            <span id="modal-alert-icon" style="font-size: 36px; display: block; margin-bottom: 10px;">🚀</span>
-            <h3 id="modal-alert-title" style="margin: 0 0 8px 0;">¡Sincronizado!</h3>
-            <p id="modal-alert-msg" style="color: var(--text-muted); font-size: 14px; margin: 0 0 20px 0; white-space: pre-wrap;">¡Base de datos y cambios publicados con éxito en GitHub! Los usuarios verán las actualizaciones en un minuto.</p>
+            <span id="modal-alert-icon" style="font-size: 36px; display: block; margin-bottom: 10px;">👑</span>
+            <h3 id="modal-alert-title" style="margin: 0 0 8px 0;">¡Actualizado!</h3>
+            <p id="modal-alert-msg" style="color: var(--text-muted); font-size: 14px; margin: 0 0 20px 0; white-space: pre-wrap;">Configuración y beneficios de membresía actualizados con éxito!</p>
             <button class="btn" style="padding: 8px 20px; font-size: 14px;" onclick="cerrarModalAlert()">Entendido</button>
         </div>
     </div>
@@ -1186,7 +1186,7 @@
     "paypalUser": "Godofdevil",
     "customDomainUrl": "https://godofdevil-cnovel.netlify.app",
     "vipConfig": {
-        "active": true,
+        "active": false,
         "title": "👑 Pásate a Miembros VIP",
         "desc": "Desbloquea todos los capítulos exclusivos con una sola membresía.",
         "durationDays": 30,
