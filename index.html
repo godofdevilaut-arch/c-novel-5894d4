@@ -1108,12 +1108,12 @@
             <div class="form-group">
                 <label>Enlace / Dominio Web Actual:</label>
                 <div style="display:flex; gap:10px; margin-bottom:10px;">
-                    <input type="text" id="admin-url-dominio" value="https://godofdevil-cnovel.netlify.app" style="font-weight:bold; color:var(--color-primary);">
+                    <input type="text" id="admin-url-dominio" value="https://godofdevilaut-arch.github.io/c-novel-5894d4/" style="font-weight:bold; color:var(--color-primary);">
                     <button class="btn" onclick="guardarNuevoDominioWeb()">💾 Guardar Nuevo Dominio</button>
                 </div>
                 <div style="display:flex; gap:10px;">
                     <button class="btn" style="background:#5f6368;" onclick="copiarDominioWeb()">📋 Copiar Enlace</button>
-                    <a id="admin-visit-link" href="https://godofdevil-cnovel.netlify.app" target="_blank" class="btn" style="text-decoration:none; text-align:center; background:#137333;">🌐 Visitar</a>
+                    <a id="admin-visit-link" href="https://godofdevilaut-arch.github.io/c-novel-5894d4/" target="_blank" class="btn" style="text-decoration:none; text-align:center; background:#137333;">🌐 Visitar</a>
                 </div>
             </div>
             <p style="font-size:13px; color:var(--text-muted); margin-top:10px;">💡 <strong>Nota:</strong> Puedes cambiar este texto por tu propio dominio personalizado (ej. <i>https://tucorreo.com</i>) y se actualizará automáticamente en los accesos.</p>
@@ -1192,7 +1192,7 @@
         const defaultDb = {
     "textoBienvenida": "Tu plataforma favorita para leer las mejores traducciones y novelas web independientes.",
     "paypalUser": "Godofdevil",
-    "customDomainUrl": "https://godofdevil-cnovel.netlify.app",
+    "customDomainUrl": "https://godofdevilaut-arch.github.io/c-novel-5894d4/",
     "vipConfig": {
         "active": true,
         "title": "👑 Pásate a Miembros VIP",
@@ -1311,7 +1311,7 @@
             localStorage.setItem('cnovel_db', JSON.stringify(defaultDb));
         }
 
-        if(!db.customDomainUrl) db.customDomainUrl = "https://godofdevil-cnovel.netlify.app";
+        if(!db.customDomainUrl) db.customDomainUrl = "https://godofdevilaut-arch.github.io/c-novel-5894d4/";
         if(!db.vipConfig) db.vipConfig = { active: true, title: "👑 Pásate a Miembros VIP", desc: "Desbloquea todos los capítulos exclusivos con una sola membresía.", durationDays: 30, price: 50 };
         if(!db.equipoTraduccion) db.equipoTraduccion = [];
         if(!db.reportesPago) db.reportesPago = [];
@@ -1397,7 +1397,10 @@
             if(!nuevoDominio) return mostrarAlertaMono("Campo Vacío", "Ingresa un dominio válido.", "⚠️");
             db.customDomainUrl = nuevoDominio;
             guardarDB();
-            document.getElementById('admin-visit-link').href = nuevoDominio;
+            
+            // Añadimos parámetro de frescura (timestamp) al enlace de visita
+            const separador = nuevoDominio.includes('?') ? '&' : '?';
+            document.getElementById('admin-visit-link').href = `${nuevoDominio}${separador}v=${Date.now()}`;
             mostrarAlertaMono("¡Dominio Actualizado!", `El dominio web ha sido cambiado a: ${nuevoDominio}`, "🌐");
         }
 
@@ -1799,8 +1802,11 @@
             document.getElementById('admin-txt-inicio').value = db.textoBienvenida;
             document.getElementById('admin-paypal-user').value = db.paypalUser || "";
 
-            document.getElementById('admin-url-dominio').value = db.customDomainUrl || "https://godofdevil-cnovel.netlify.app";
-            document.getElementById('admin-visit-link').href = db.customDomainUrl || "https://godofdevil-cnovel.netlify.app";
+            const dominioBase = db.customDomainUrl || "https://godofdevilaut-arch.github.io/c-novel-5894d4/";
+            document.getElementById('admin-url-dominio').value = dominioBase;
+            
+            const separador = dominioBase.includes('?') ? '&' : '?';
+            document.getElementById('admin-visit-link').href = `${dominioBase}${separador}v=${Date.now()}`;
 
             document.getElementById('admin-google-sites').value = db.googleSitesUrl || "";
             document.getElementById('admin-google-ads').value = db.googleAdsId || "";
@@ -2969,7 +2975,13 @@
                 });
 
                 if (responsePut.ok) {
-                    mostrarAlertaMono("¡Sincronizado!", "¡Base de datos y cambios publicados con éxito en GitHub! Los usuarios verán las actualizaciones en un minuto.", "🚀");
+                    // Actualizamos dinámicamente el enlace de visita con un timestamp fresco para evitar el caché de GitHub Pages
+                    const domainBase = db.customDomainUrl || "https://godofdevilaut-arch.github.io/c-novel-5894d4/";
+                    const sep = domainBase.includes('?') ? '&' : '?';
+                    const linkFresh = `${domainBase}${sep}v=${Date.now()}`;
+                    document.getElementById('admin-visit-link').href = linkFresh;
+
+                    mostrarAlertaMono("¡Sincronizado!", "¡Base de datos y cambios publicados con éxito en GitHub! Ya puedes hacer clic en 'Visitar' para verlos sin caché.", "🚀");
                 } else {
                     const errPutData = await responsePut.json();
                     mostrarAlertaMono("Error de GitHub", `Detalle: ${errPutData.message || "Error al guardar los datos"}`, "⚠️");
