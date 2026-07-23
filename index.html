@@ -415,7 +415,7 @@
             <button onclick="showScreen('inicio')">Inicio</button>
             <button onclick="showScreen('categorias')">Categorías</button>
             <button onclick="showScreen('biblioteca')" id="nav-btn-biblio" style="display: inline-block;">📚 Mi Biblioteca</button>
-            <button onclick="showScreen('membresia')" id="nav-btn-vip-tab" style="display: inline-block;">👑 Membresía</button>
+            <button onclick="showScreen('membresia')" id="nav-btn-vip-tab" style="display: none;">👑 Membresía</button>
             <button onclick="showScreen('login')" id="btn-login-state">⚙️ Panel Admin</button>
             <div id="admin-mode-container" style="display:inline-block;"><button class="btn-admin-switch" onclick="alternarVistaAdminLector()">👑 Cambiar a Lector</button></div>
         </div>
@@ -1105,7 +1105,7 @@
                 </div>
                 <div style="display:flex; gap:10px;">
                     <button class="btn" style="background:#5f6368;" onclick="copiarDominioWeb()">📋 Copiar Enlace</button>
-                    <a id="admin-visit-link" href="https://godofdevilaut-arch.github.io/c-novel-5894d4/?v=1784818291709" target="_blank" class="btn" style="text-decoration:none; text-align:center; background:#137333;">🌐 Visitar</a>
+                    <a id="admin-visit-link" href="https://godofdevilaut-arch.github.io/c-novel-5894d4/?v=1784818401664" target="_blank" class="btn" style="text-decoration:none; text-align:center; background:#137333;">🌐 Visitar</a>
                 </div>
             </div>
             <p style="font-size:13px; color:var(--text-muted); margin-top:10px;">💡 <strong>Nota:</strong> Puedes cambiar este texto por tu propio dominio personalizado (ej. <i>https://tucorreo.com</i>) y se actualizará automáticamente en los accesos.</p>
@@ -1194,7 +1194,7 @@
     "paypalUser": "Godofdevil",
     "customDomainUrl": "https://godofdevilaut-arch.github.io/c-novel-5894d4/",
     "vipConfig": {
-        "active": true,
+        "active": false,
         "title": "👑 Pásate a Miembros VIP",
         "desc": "Desbloquea todos los capítulos exclusivos con una sola membresía.",
         "durationDays": 30,
