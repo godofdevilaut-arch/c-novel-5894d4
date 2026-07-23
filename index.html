@@ -2750,6 +2750,56 @@
             mostrarAlertaMono("¡Actualizado!", "Enlaces de PayPal actualizados!", "💰");
             refrescarPlataforma();
         }
-    </script>
+    </script> <script>
+async function sincronizarConGitHub() {
+    const TOKEN = "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";
+    const USERNAME = "godofdevilaut-arch";
+    const REPO = "c-novel-5894d4";
+    const FILE_PATH = "index.html";
+
+    const url = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${FILE_PATH}`;
+
+    try {
+        const responseGet = await fetch(url, {
+            headers: {
+                "Authorization": `token ${TOKEN}`,
+                "Accept": "application/vnd.github.v3+json"
+            }
+        });
+
+        if (!responseGet.ok) throw new Error("No se pudo obtener el archivo del repositorio.");
+
+        const fileData = await responseGet.json();
+        const fileSha = fileData.sha;
+
+        const contenidoActualizadoHTML = document.documentElement.outerHTML; 
+        const contenidoBase64 = btoa(unescape(encodeURIComponent(contenidoActualizadoHTML)));
+
+        const responsePut = await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Authorization": `token ${TOKEN}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                message: "Actualización automática desde el panel de administración",
+                content: contenidoBase64,
+                sha: fileSha
+            })
+        });
+
+        if (responsePut.ok) {
+            alert("¡Cambios publicados con éxito! Todos los usuarios verán las actualizaciones en unos segundos.");
+        } else {
+            alert("Hubo un error al sincronizar con GitHub.");
+        }
+
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Ocurrió un error en la conexión con GitHub.");
+    }
+}
+</script>
 </body>
 </html>
+
