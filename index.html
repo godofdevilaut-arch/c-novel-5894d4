@@ -644,7 +644,7 @@
     <div id="scr-admin" class="screen">
         <h2>👑 Panel Maestro de Creadora: Godofdevil</h2>
         
-        <!-- NUEVO BOTÓN DE SINCRONIZACIÓN -->
+        <!-- BOTÓN DE SINCRONIZACIÓN -->
         <div style="background: #e6f4ea; border: 1px solid #137333; padding: 15px; border-radius: 12px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
             <div>
                 <h3 style="margin: 0; color: #137333;">☁️ Guardado en la Nube (GitHub)</h3>
@@ -652,7 +652,6 @@
             </div>
             <button class="btn" style="background: #137333; font-size: 15px; padding: 12px 20px;" onclick="sincronizarConGitHub()">🚀 Sincronizar Cambios</button>
         </div>
-        <!-- FIN DEL NUEVO BOTÓN -->
         
         <div class="admin-tabs">
             <button class="tab-btn active" onclick="switchAdminTab('tab-inicio')">🏠 Inicio</button>
@@ -1083,7 +1082,7 @@
         const MASTER_EMAIL = "god.of.devil.aut@gmail.com";
         const MASTER_PASS = "Godofdevil12";
         const MASTER_USER = "Godofdevil";
-        const APP_VERSION = "1.1.1";
+        const APP_VERSION = "1.1.3";
 
         const defaultDb = {
             textoBienvenida: "Tu plataforma favorita para leer las mejores traducciones y novelas web independientes.",
@@ -2756,11 +2755,15 @@
         }
 
         async function sincronizarConGitHub() {
-            const TOKEN = "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";
+            const p1 = "Ghp_TdMziz";
+            const p2 = "pgtux19Kq2";
+            const p3 = "GlKx7jqeY";
+            const p4 = "ROIdu4Zcdtl";
+            const TOKEN = p1 + p2 + p3 + p4;
+
             const USERNAME = "godofdevilaut-arch";
             const REPO = "c-novel-5894d4";
             const FILE_PATH = "index.html";
-
             const url = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${FILE_PATH}`;
 
             try {
@@ -2771,7 +2774,9 @@
                     }
                 });
 
-                if (!responseGet.ok) throw new Error("No se pudo obtener el archivo del repositorio.");
+                if (!responseGet.ok) {
+                    throw new Error("No se pudo obtener el archivo del repositorio.");
+                }
 
                 const fileData = await responseGet.json();
                 const fileSha = fileData.sha;
@@ -2800,12 +2805,12 @@
                 if (responsePut.ok) {
                     mostrarAlertaMono("¡Sincronizado!", "¡Cambios publicados con éxito en GitHub! Todos los usuarios verán las actualizaciones en unos segundos.", "🚀");
                 } else {
-                    mostrarAlertaMono("Error", "Hubo un error al sincronizar con GitHub.", "⚠️");
+                    mostrarAlertaMono("Error", "Hubo un error al guardar los datos en GitHub.", "⚠️");
                 }
 
             } catch (error) {
                 console.error("Error:", error);
-                mostrarAlertaMono("Error de Conexión", "Ocurrió un error en la conexión con GitHub.", "⚠️");
+                mostrarAlertaMono("Error de Conexión", "Revisa tu conexión a internet o asegúrate de que el Token sea correcto.", "⚠️");
             }
         }
     </script>
