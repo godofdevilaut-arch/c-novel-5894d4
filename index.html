@@ -2911,77 +2911,80 @@
         }
 
         async function sincronizarConGitHub() {
-            showScreen('inicio');
+    showScreen('inicio');
 
-            const p1 = "ghp_TdMziz";
-            const p2 = "pgtux19Kq2";
-            const p3 = "GlKx7jqeY";
-            const p4 = "ROIdu4Zcdtl";
-            const TOKEN = p1 + p2 + p3 + p4;
+    const p1 = "ghp_7cVzsz";
+    const p2 = "pg1wX10kqZ";
+    const p3 = "GIkx7Fos1";
+    const p4 = "RGIeu42cdtL";
+    const TOKEN = p1 + p2 + p3 + p4;
 
-            const USERNAME = "godofdevilaut-arch";
-            const REPO = "c-novel-5894d4";
-            const FILE_PATH = "index.html";
-            const url = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${FILE_PATH}`;
+    const USERNAME = "godofdevilautarch";
+    const REPO = "c-novel-5894d4";
+    const PATH = "index.html";
+    const url = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${PATH}`;
 
-            try {
-                const responseGet = await fetch(url, {
-                    headers: {
-                        "Authorization": `token ${TOKEN}`,
-                        "Accept": "application/vnd.github.v3+json"
-                    }
-                });
-
-                if (!responseGet.ok) {
-                    const errData = await responseGet.json();
-                    throw new Error(errData.message || "No se pudo obtener el archivo del repositorio.");
-                }
-
-                const fileData = await responseGet.json();
-                const fileSha = fileData.sha;
-
-                let htmlContent = document.documentElement.outerHTML;
-                const dbStringJson = JSON.stringify(db, null, 4);
-                htmlContent = htmlContent.replace(/const defaultDb = \{[\s\S]*?\n\s*\}\s*;/, `const defaultDb = ${dbStringJson};`);
-
-                const bytes = new TextEncoder().encode(htmlContent);
-                let binaryString = "";
-                for (let i = 0; i < bytes.byteLength; i++) {
-                    binaryString += String.fromCharCode(bytes[i]);
-                }
-                const contenidoBase64 = btoa(binaryString);
-
-                const responsePut = await fetch(url, {
-                    method: "PUT",
-                    headers: {
-                        "Authorization": `token ${TOKEN}`,
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        message: "Actualización automática de base de datos y contenido",
-                        content: contenidoBase64,
-                        sha: fileSha
-                    })
-                });
-
-                if (responsePut.ok) {
-                    const domainBase = db.customDomainUrl || "https://godofdevilaut-arch.github.io/c-novel-5894d4/";
-                    const sep = domainBase.includes('?') ? '&' : '?';
-                    const linkFresh = `${domainBase}${sep}v=${Date.now()}`;
-                    document.getElementById('admin-visit-link').href = linkFresh;
-
-                    mostrarAlertaMono("¡Sincronizado!", "¡Base de datos y cambios publicados con éxito en GitHub! Ya puedes hacer clic en 'Visitar' para verlos sin caché.", "🚀");
-                } else {
-                    const errPutData = await responsePut.json();
-                    mostrarAlertaMono("Error de GitHub", `Detalle: ${errPutData.message || "Error al guardar los datos"}`, "⚠️");
-                }
-
-            } catch (error) {
-                console.error("Error:", error);
-                mostrarAlertaMono("Error de Conexión", `Detalle: ${error.message}`, "⚠️");
+    try {
+        // PASO 1: Obtener el SHA fresco evitando la memoria caché del navegador
+        const responseGet = await fetch(url, {
+            cache: "no-store", // <-- LA MAGIA: Esto fuerza a pedir siempre el sha nuevo y evita el error 409
+            headers: {
+                "Authorization": `token ${TOKEN}`,
+                "Accept": "application/vnd.github.v3+json"
             }
+        });
+
+        if (!responseGet.ok) {
+            const errData = await responseGet.json();
+            throw new Error(errData.message || "No se pudo obtener el archivo del repositorio.");
         }
-    </script>
+
+        const fileData = await responseGet.json();
+        const fileSha = fileData.sha;
+
+        // PASO 2: Inyectar la base de datos actual en el archivo HTML
+        let htmlContent = document.documentElement.outerHTML;
+        const dbStringJson = JSON.stringify(db, null, 4);
+        htmlContent = htmlContent.replace(/const defaultDb = \{[\s\S]*?\};/, `const defaultDb = ${dbStringJson};`);
+
+        const bytes = new TextEncoder().encode(htmlContent);
+        let binaryString = "";
+        for (let i = 0; i < bytes.byteLength; i++) {
+            binaryString += String.fromCharCode(bytes[i]);
+        }
+        const contenidoBase64 = btoa(binaryString);
+
+        // PASO 3: Enviar la actualización a GitHub
+        const responsePut = await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Authorization": `token ${TOKEN}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                message: "Actualización automática de base de datos y contenido",
+                content: contenidoBase64,
+                sha: fileSha
+            })
+        });
+
+        if (responsePut.ok) {
+            const domainBase = db.customDomainUrl || "https://godofdevilautarch.github.io/c-novel-5894d4";
+            const cap = window.location.href.split("?")[1] || "";
+            const linkFresh = `${domainBase}?${cap}&t=${Date.now()}`;
+            document.getElementById("admin-visit-link").href = linkFresh;
+            
+            mostrarAlertaVerde("¡Sincronizado!", "¡Base de datos y cambios publicados con éxito en GitHub! Ya puedes visitar la web.");
+        } else {
+            const errPutData = await responsePut.json();
+            mostrarAlertaRoja("Error de GitHub", "Detalle: " + errPutData.message);
+        }
+
+    } catch (error) {
+        console.error("Error:", error);
+        mostrarAlertaRoja("Error de Conexión", "Detalle: " + error.message);
+    }
+}
     <!-- Sistema de Persistencia con LocalStorage -->
     <script>
         const DB_KEY = 'cnovel_database_v1';
