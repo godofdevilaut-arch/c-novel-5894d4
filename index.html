@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
+<html lang="es"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CNovel - Plataforma Oficial</title>
@@ -401,19 +399,19 @@
         }
     </style>
 </head>
-<body class="theme-claro">
+<body class="theme-claro is-master-user">
 
     <div id="dynamic-injected-container"></div>
 
-    <nav class="main-nav" id="global-navbar">
+    <nav class="main-nav" id="global-navbar" style="display: flex;">
         <span style="font-weight: bold; font-size: 18px; color: var(--color-primary);">CNovel</span>
         <div class="nav-links">
             <button onclick="showScreen('inicio')">Inicio</button>
             <button onclick="showScreen('categorias')">Categorías</button>
-            <button onclick="showScreen('biblioteca')" id="nav-btn-biblio" style="display:none;">📚 Mi Biblioteca</button>
-            <button onclick="showScreen('membresia')" id="nav-btn-vip-tab">👑 Membresía</button>
-            <button onclick="showScreen('login')" id="btn-login-state">Ingresar</button>
-            <div id="admin-mode-container" style="display:inline-block;"></div>
+            <button onclick="showScreen('biblioteca')" id="nav-btn-biblio" style="display: inline-block;">📚 Mi Biblioteca</button>
+            <button onclick="showScreen('membresia')" id="nav-btn-vip-tab" style="display: none;">👑 Membresía</button>
+            <button onclick="showScreen('login')" id="btn-login-state">⚙️ Panel Admin</button>
+            <div id="admin-mode-container" style="display:inline-block;"><button class="btn-admin-switch" onclick="alternarVistaAdminLector()">👑 Cambiar a Lector</button></div>
         </div>
     </nav>
 
@@ -421,16 +419,36 @@
     <div id="scr-inicio" class="screen active">
         <div id="inicio-bienvenida" style="padding: 20px; border-radius: 8px; margin-bottom: 20px;">
             <h2 style="margin-top:0;">✨ ¡Bienvenido a CNovel!</h2>
-            <p id="txt-bienvenida">Cargando...</p>
+            <p id="txt-bienvenida">Tu plataforma favorita para leer las mejores traducciones y novelas web independientes.</p>
         </div>
         <h2>Biblioteca de Novedades</h2>
-        <div id="lista-novelas-inicio"></div>
+        <div id="lista-novelas-inicio">
+                    <div class="book-card-click" onclick="abrirFolderLibro('1')">
+                        <span style="font-size:35px; margin-right:15px; display:inline-block;">📖</span>
+                        <div>
+                            <h3 style="margin:0;">Suave y Lindo Conejo Demonio</h3>
+                            <p style="margin:5px 0 0 0; color:var(--text-muted); font-size:14px;">Categoría: Reino Femenino | Traductor(a): Godofdevil</p>
+                            <p style="margin:3px 0 0 0; color:var(--color-apoyo); font-size:12px;">❤️ 0 favoritos</p>
+                        </div>
+                    </div></div>
     </div>
 
     <!-- PANTALLA: CATEGORÍAS -->
     <div id="scr-categorias" class="screen">
         <h2>Categorías</h2>
-        <div id="contenedor-categorias-dinamicas"></div>
+        <div id="contenedor-categorias-dinamicas">
+                    <div style="padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <h3 style="margin-top:0;">🏷️ Reino Femenino</h3>
+                        <ul style="margin-bottom:0;"><li><a href="#" style="color:var(--color-primary); font-weight:600;" onclick="abrirFolderLibro('1')">Suave y Lindo Conejo Demonio</a></li></ul>
+                    </div>
+                    <div style="padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <h3 style="margin-top:0;">🏷️ Fantasía</h3>
+                        <ul style="margin-bottom:0;"><li style="color:var(--text-muted); list-style:none;">Aún no hay obras aquí.</li></ul>
+                    </div>
+                    <div style="padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <h3 style="margin-top:0;">🏷️ General</h3>
+                        <ul style="margin-bottom:0;"><li style="color:var(--text-muted); list-style:none;">Aún no hay obras aquí.</li></ul>
+                    </div></div>
     </div>
 
     <!-- PANTALLA: MI BIBLIOTECA -->
@@ -438,13 +456,21 @@
         <div id="biblio-cuenta-box" class="account-box" style="padding: 20px; border-radius: 12px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
             <div>
                 <h3 style="margin: 0 0 5px 0;">👤 Cuenta Activa</h3>
-                <p id="biblio-user-info" style="margin: 0; color: var(--text-muted); font-size: 14px;">Cargando usuario...</p>
+                <p id="biblio-user-info" style="margin: 0; color: var(--text-muted); font-size: 14px;">Godofdevil — god.of.devil.aut@gmail.com (Creadora / Administradora)</p>
             </div>
             <button class="btn-danger" style="padding: 10px 18px; font-size: 14px;" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
         </div>
 
         <h2>📚 Mi Biblioteca Personal (Guardado en Cuenta)</h2>
-        <div id="biblioteca-contenido"></div>
+        <div id="biblioteca-contenido"><h3>❤️ Tus Novelas Guardadas en Cuenta (0)</h3><p style="color:var(--text-muted); font-size:14px;">No tienes novelas guardadas en tu cuenta aún.</p><h3 style="margin-top:30px;">📊 Progreso y Continuar Lectura</h3>
+                    <div style="background:var(--bg-base); padding:15px; border-radius:8px; border:1px solid var(--border); margin-bottom:12px;">
+                        <h4 style="margin:0 0 5px 0;">Suave y Lindo Conejo Demonio</h4>
+                        <p style="margin:0 0 8px 0; font-size:13px; color:var(--text-muted);">Leídos: 0 de 2 capítulos (0%)</p>
+                        <div style="background:var(--border); border-radius:4px; height:8px; overflow:hidden; margin-bottom:10px;">
+                            <div style="background:var(--color-primary); width:0%; height:100%;"></div>
+                        </div>
+                        <a href="#" style="font-size:14px; color:var(--color-primary); font-weight:bold; text-decoration:none;" onclick="leerCapituloCompleto('1'); return false;">👉 Empezar desde el principio: Capítulo 1: Por Favor no te Comas mi Mascota</a>
+                    </div></div>
     </div>
 
     <!-- PANTALLA: MEMBRESÍA PÚBLICA -->
@@ -580,19 +606,19 @@
                     <span class="producto-icon" id="prod-icon-1">🍪</span>
                     <strong id="prod-name-1">Una Galleta</strong>
                     <span class="producto-precio" id="prod-price-1">$10.00</span>
-                    <a href="#" id="pay-link-galleta" class="btn-comprar" target="_blank">Comprar</a>
+                    <a href="https://www.paypal.me/Godofdevil/10" id="pay-link-galleta" class="btn-comprar" target="_blank">Comprar</a>
                 </div>
                 <div class="producto-card">
                     <span class="producto-icon" id="prod-icon-2">☕</span>
                     <strong id="prod-name-2">Un Café</strong>
                     <span class="producto-precio" id="prod-price-2">$25.00</span>
-                    <a href="#" id="pay-link-cafe" class="btn-comprar" target="_blank">Comprar</a>
+                    <a href="https://www.paypal.me/Godofdevil/25" id="pay-link-cafe" class="btn-comprar" target="_blank">Comprar</a>
                 </div>
                 <div class="producto-card">
                     <span class="producto-icon" id="prod-icon-3">🥪</span>
                     <strong id="prod-name-3">Un Sándwich</strong>
                     <span class="producto-precio" id="prod-price-3">$35.00</span>
-                    <a href="#" id="pay-link-sandwich" class="btn-comprar" target="_blank">Comprar</a>
+                    <a href="https://www.paypal.me/Godofdevil/35" id="pay-link-sandwich" class="btn-comprar" target="_blank">Comprar</a>
                 </div>
             </div>
         </section>
@@ -614,9 +640,12 @@
         <h2>Ingreso al Sistema</h2>
         <p style="color:var(--text-muted);">Los lectores y equipo de traducción pueden ingresar aquí o elegir una cuenta recordada.</p>
         
-        <div id="contenedor-cuentas-recordadas" style="margin-bottom: 25px; display: none;">
+        <div id="contenedor-cuentas-recordadas" style="margin-bottom: 25px; display: block;">
             <label style="font-weight:bold; display:block; margin-bottom:8px;">📌 Cuentas Recordadas en este Dispositivo:</label>
-            <div id="lista-cuentas-recordadas" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
+            <div id="lista-cuentas-recordadas" style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <button class="btn" style="background:var(--bg-base); color:var(--text-main); border:1px solid var(--border); font-size:13px; padding:6px 12px;" onclick="iniciarSesionConCuentaGuardada('god.of.devil.aut@gmail.com')">
+                        👤 Godofdevil (god.of.devil.aut@gmail.com)
+                    </button></div>
         </div>
 
         <div class="form-group">
@@ -633,7 +662,7 @@
         </div>
         <div class="form-group" style="background:var(--bg-base); padding:12px; border-radius:8px; border:1px solid var(--border);">
             <label style="display:flex; align-items:center; gap:10px; cursor:pointer; margin-bottom:0;">
-                <input type="checkbox" id="login-recordar-check" style="width:18px; height:18px;" checked>
+                <input type="checkbox" id="login-recordar-check" style="width:18px; height:18px;" checked="">
                 <span>Recordar sesión y guardar datos en mi cuenta</span>
             </label>
         </div>
@@ -688,7 +717,19 @@
                 </div>
             </div>
             <h4 style="margin-top: 25px; border-bottom: 1px solid var(--border); padding-bottom: 10px;">Categorías Existentes</h4>
-            <div id="lista-admin-categorias"></div>
+            <div id="lista-admin-categorias">
+                    <div class="item-admin-list">
+                        <strong>Reino Femenino</strong>
+                        <button class="btn-danger" onclick="eliminarCategoria(0)">Eliminar</button>
+                    </div>
+                    <div class="item-admin-list">
+                        <strong>Fantasía</strong>
+                        <button class="btn-danger" onclick="eliminarCategoria(1)">Eliminar</button>
+                    </div>
+                    <div class="item-admin-list">
+                        <strong>General</strong>
+                        <button class="btn-danger" onclick="eliminarCategoria(2)">Eliminar</button>
+                    </div></div>
         </div>
 
         <div id="tab-novelas" class="admin-section">
@@ -712,7 +753,7 @@
                 </div>
                 <div class="form-group">
                     <label>Categoría / Género:</label>
-                    <select id="admin-novela-categoria"></select>
+                    <select id="admin-novela-categoria"><option value="Reino Femenino">Reino Femenino</option><option value="Fantasía">Fantasía</option><option value="General">General</option></select>
                 </div>
                 <div class="form-group">
                     <label>Número de Capítulos (Obra Original):</label>
@@ -741,7 +782,7 @@
                 <h3>✏️ Editar / Cambiar Datos de Novela Existente</h3>
                 <div class="form-group">
                     <label>Seleccionar Novela a Modificar:</label>
-                    <select id="admin-edit-novela-select" onchange="cargarDatosNovelaParaEditar()"></select>
+                    <select id="admin-edit-novela-select" onchange="cargarDatosNovelaParaEditar()"><option value="1">Suave y Lindo Conejo Demonio</option></select>
                 </div>
                 <div class="form-group">
                     <label>Nuevo Título:</label>
@@ -761,7 +802,7 @@
                 </div>
                 <div class="form-group">
                     <label>Cambiar Categoría:</label>
-                    <select id="admin-edit-novela-categoria"></select>
+                    <select id="admin-edit-novela-categoria"><option value="Reino Femenino">Reino Femenino</option><option value="Fantasía">Fantasía</option><option value="General">General</option></select>
                 </div>
                 <div class="form-group">
                     <label>Número de Capítulos (Obra Original):</label>
@@ -793,7 +834,7 @@
             <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:20px; margin-top:15px;">
                 <div class="form-group">
                     <label>Seleccionar Novela Destino:</label>
-                    <select id="admin-select-novela"></select>
+                    <select id="admin-select-novela"><option value="1">Suave y Lindo Conejo Demonio</option></select>
                 </div>
                 <div class="form-group">
                     <label>Título del Capítulo:</label>
@@ -841,9 +882,23 @@
             <h3 style="margin-top:35px; border-top:2px solid var(--border); padding-top:20px;">Editar o Eliminar Capítulos Publicados</h3>
             <div class="form-group">
                 <label>Filtrar Capítulos por Novela:</label>
-                <select id="admin-filter-novela-caps" onchange="renderListaAdminCapitulos()"></select>
+                <select id="admin-filter-novela-caps" onchange="renderListaAdminCapitulos()"><option value="1">Suave y Lindo Conejo Demonio</option></select>
             </div>
-            <div id="lista-admin-capitulos"></div>
+            <div id="lista-admin-capitulos">
+                    <div class="item-admin-list">
+                        <span>📖 <strong>Capítulo 1: Por Favor no te Comas mi Mascota</strong> </span>
+                        <div style="display:flex; gap:6px;">
+                            <button class="btn-warning" onclick="prepararEdicionCapitulo('1')">✏️ Editar</button>
+                            <button class="btn-danger" onclick="eliminarCapitulo('1')">🗑️ Eliminar</button>
+                        </div>
+                    </div>
+                    <div class="item-admin-list">
+                        <span>📖 <strong>Capítulo 2: Hacia el Reino (VIP)</strong> 🔒(VIP)</span>
+                        <div style="display:flex; gap:6px;">
+                            <button class="btn-warning" onclick="prepararEdicionCapitulo('2')">✏️ Editar</button>
+                            <button class="btn-danger" onclick="eliminarCapitulo('2')">🗑️ Eliminar</button>
+                        </div>
+                    </div></div>
         </div>
 
         <div id="tab-membresias" class="admin-section">
@@ -898,10 +953,10 @@
         <div id="tab-reportes" class="admin-section">
             <h3>📥 Reportes de Pago y Errores en Capítulos</h3>
             <p style="color:var(--text-muted); font-size:14px;">Aquí gestionas tanto los reportes de pago como los avisos de errores ortográficos o de formato enviados por los lectores desde los capítulos.</p>
-            <div id="lista-admin-reportes-pago"></div>
+            <div id="lista-admin-reportes-pago"><p style="color:var(--text-muted); font-size:14px;">No hay reportes ni chats activos.</p></div>
             
             <h4 style="margin-top:35px; border-top:2px solid var(--border); paddingTop:20px;">⚠️ Reportes de Errores en Capítulos</h4>
-            <div id="lista-admin-errores-capitulos"></div>
+            <div id="lista-admin-errores-capitulos"><p style="color:var(--text-muted); font-size:14px;">No hay reportes de errores en capítulos.</p></div>
         </div>
 
         <div id="tab-equipo" class="admin-section">
@@ -919,7 +974,7 @@
             <button class="btn" onclick="agregarColaboradorEquipo()">➕ Registrar Colaboradora VIP</button>
 
             <h4 style="margin-top:25px; border-bottom:1px solid var(--border); padding-bottom:10px;">Equipo Registrado con Acceso Gratuito</h4>
-            <div id="lista-equipo-colaboradores"></div>
+            <div id="lista-equipo-colaboradores"><p style="color:var(--text-muted); font-size:14px;">No hay colaboradoras registradas aún.</p></div>
         </div>
 
         <div id="tab-apoyo" class="admin-section">
@@ -977,23 +1032,59 @@
                 <div style="background: var(--bg-base); padding: 15px; border-radius: 8px; border: 1px solid var(--border);">
                     <span style="font-size: 24px;">👀</span>
                     <h4 style="margin: 5px 0 0 0; color: var(--text-muted);">Visitas Totales Reales</h4>
-                    <p id="stat-total-visits" style="font-size: 24px; font-weight: bold; color: var(--color-primary); margin: 5px 0 0 0;">0</p>
+                    <p id="stat-total-visits" style="font-size: 24px; font-weight: bold; color: var(--color-primary); margin: 5px 0 0 0;">1</p>
                 </div>
                 <div style="background: var(--bg-base); padding: 15px; border-radius: 8px; border: 1px solid var(--border);">
                     <span style="font-size: 24px;">👥</span>
                     <h4 style="margin: 5px 0 0 0; color: var(--text-muted);">Lectores Únicos Registrados</h4>
-                    <p id="stat-total-readers" style="font-size: 24px; font-weight: bold; color: var(--color-vip); margin: 5px 0 0 0;">0</p>
+                    <p id="stat-total-readers" style="font-size: 24px; font-weight: bold; color: var(--color-vip); margin: 5px 0 0 0;">1</p>
                 </div>
             </div>
 
             <h4>📅 Visitas Desglosadas por Mes</h4>
-            <div id="lista-stats-meses" style="margin-bottom: 25px;"></div>
+            <div id="lista-stats-meses" style="margin-bottom: 25px;">
+                        <div class="item-admin-list">
+                            <span>📅 <strong>Julio 2026</strong></span>
+                            <span><strong>1</strong> visitas</span>
+                        </div></div>
 
             <h4>🗓️ Visitas Desglosadas por Día de la Semana</h4>
-            <div id="lista-stats-dias" style="margin-bottom: 25px;"></div>
+            <div id="lista-stats-dias" style="margin-bottom: 25px;">
+                    <div class="item-admin-list">
+                        <span>🗓️ <strong>Lunes</strong></span>
+                        <span><strong>0</strong> visitas</span>
+                    </div>
+                    <div class="item-admin-list">
+                        <span>🗓️ <strong>Martes</strong></span>
+                        <span><strong>0</strong> visitas</span>
+                    </div>
+                    <div class="item-admin-list">
+                        <span>🗓️ <strong>Miércoles</strong></span>
+                        <span><strong>1</strong> visitas</span>
+                    </div>
+                    <div class="item-admin-list">
+                        <span>🗓️ <strong>Jueves</strong></span>
+                        <span><strong>0</strong> visitas</span>
+                    </div>
+                    <div class="item-admin-list">
+                        <span>🗓️ <strong>Viernes</strong></span>
+                        <span><strong>0</strong> visitas</span>
+                    </div>
+                    <div class="item-admin-list">
+                        <span>🗓️ <strong>Sábado</strong></span>
+                        <span><strong>0</strong> visitas</span>
+                    </div>
+                    <div class="item-admin-list">
+                        <span>🗓️ <strong>Domingo</strong></span>
+                        <span><strong>0</strong> visitas</span>
+                    </div></div>
 
             <h4>📖 Visualizaciones Reales por Novela</h4>
-            <div id="lista-stats-novelas"></div>
+            <div id="lista-stats-novelas">
+                    <div class="item-admin-list">
+                        <span>📖 <strong>Suave y Lindo Conejo Demonio</strong></span>
+                        <span style="color:var(--color-primary); font-weight:bold;">👁️ 0 visualizaciones reales</span>
+                    </div></div>
         </div>
 
         <div id="tab-dominio" class="admin-section">
@@ -1035,7 +1126,7 @@
             
             <div class="form-group">
                 <label>Código HTML / JS / CSS Personalizado:</label>
-                <textarea id="admin-custom-patch" class="writing-textarea" style="min-height: 200px;" placeholder="<!-- Puedes escribir aquí HTML, <script> o <style> -->"></textarea>
+                <textarea id="admin-custom-patch" class="writing-textarea" style="min-height: 200px;" placeholder="&lt;!-- Puedes escribir aquí HTML, &lt;script&gt; o &lt;style&gt; --&gt;"></textarea>
             </div>
             <button class="btn" onclick="guardarInyeccionCodigo()">⚡ Aplicar e Inyectar Código</button>
         </div>
@@ -1060,8 +1151,8 @@
     <div id="custom-modal-alert" class="custom-modal-overlay">
         <div class="custom-modal-content">
             <span id="modal-alert-icon" style="font-size: 36px; display: block; margin-bottom: 10px;">✨</span>
-            <h3 id="modal-alert-title" style="margin: 0 0 8px 0;">Aviso</h3>
-            <p id="modal-alert-msg" style="color: var(--text-muted); font-size: 14px; margin: 0 0 20px 0; white-space: pre-wrap;"></p>
+            <h3 id="modal-alert-title" style="margin: 0 0 8px 0;">¡Sesión Restaurada!</h3>
+            <p id="modal-alert-msg" style="color: var(--text-muted); font-size: 14px; margin: 0 0 20px 0; white-space: pre-wrap;">Bienvenido de nuevo, Godofdevil.</p>
             <button class="btn" style="padding: 8px 20px; font-size: 14px;" onclick="cerrarModalAlert()">Entendido</button>
         </div>
     </div>
@@ -1085,62 +1176,116 @@
         const APP_VERSION = "1.1.5";
 
         const defaultDb = {
-            textoBienvenida: "Tu plataforma favorita para leer las mejores traducciones y novelas web independientes.",
-            paypalUser: "Godofdevil",
-            customDomainUrl: "https://godofdevil-cnovel.netlify.app",
-            vipConfig: { 
-                active: true, 
-                title: "👑 Pásate a Miembros VIP",
-                desc: "Desbloquea todos los capítulos exclusivos con una sola membresía.",
-                durationDays: 30, 
-                price: 50 
-            },
-            equipoTraduccion: [],
-            reportesPago: [],
-            erroresCapitulos: [],
-            apoyoConfig: {
-                titulo: "✨ Apoya a la Traductora (Godofdevil)",
-                desc: "Si disfrutas de la traducción y mi contenido, ¡invítame un detalle para continuar trabajando!",
-                p1: { icon: "🍪", name: "Una Galleta", price: 10 },
-                p2: { icon: "☕", name: "Un Café", price: 25 },
-                p3: { icon: "🥪", name: "Un Sándwich", price: 35 }
-            },
-            googleSitesUrl: "",
-            googleAdsId: "",
-            customPatchCode: "",
-            estadisticas: {
-                visitasTotales: 0,
-                lectoresUnicos: [],
-                meses: {},
-                diasSemana: { "Lunes": 0, "Martes": 0, "Miércoles": 0, "Jueves": 0, "Viernes": 0, "Sábado": 0, "Domingo": 0 }
-            },
-            visualizacionesNovelas: { "1": 0 },
-            categorias: ["Reino Femenino", "Fantasía", "General"],
-            novelas: [
-                { 
-                    id: "1", 
-                    title: "Suave y Lindo Conejo Demonio", 
-                    originalTitle: "Soft and Cute Demon Rabbit",
-                    originalAuthor: "Autor Desconocido",
-                    categoria: "Reino Femenino", 
-                    totalChapters: 120,
-                    coverImage: null, 
-                    synopsis: "Esta es una historia feliz de una vida feliz... ¡El protagonista masculino es débil y delicioso!", 
-                    author: "Godofdevil",
-                    translationStatus: "En Traducción"
-                }
-            ],
-            capitulos: [
-                { id: "1", novelasId: "1", title: "Capítulo 1: Por Favor no te Comas mi Mascota", content: "El viento de la noche acariciaba las montañas...", pov: "Protagonista", isVip: false },
-                { id: "2", novelasId: "1", title: "Capítulo 2: Hacia el Reino (VIP)", content: "Contenido exclusivo VIP del capítulo 2...", pov: "Protagonista", isVip: true }
-            ],
-            comentarios: {
-                "1": [{ autor: "LectorX", texto: "¡Me encantó este capítulo!" }]
-            },
-            comentariosNovelas: {
-                "1": [{ autor: "LectorFan", texto: "¡Esta novela es hermosa! La recomiendo totalmente." }]
+    "textoBienvenida": "Tu plataforma favorita para leer las mejores traducciones y novelas web independientes.",
+    "paypalUser": "Godofdevil",
+    "customDomainUrl": "https://godofdevil-cnovel.netlify.app",
+    "vipConfig": {
+        "active": false,
+        "title": "👑 Pásate a Miembros VIP",
+        "desc": "Desbloquea todos los capítulos exclusivos con una sola membresía.",
+        "durationDays": 30,
+        "price": 50
+    },
+    "equipoTraduccion": [],
+    "reportesPago": [],
+    "erroresCapitulos": [],
+    "apoyoConfig": {
+        "titulo": "✨ Apoya a la Traductora (Godofdevil)",
+        "desc": "Si disfrutas de la traducción y mi contenido, ¡invítame un detalle para continuar trabajando!",
+        "p1": {
+            "icon": "🍪",
+            "name": "Una Galleta",
+            "price": 10
+        },
+        "p2": {
+            "icon": "☕",
+            "name": "Un Café",
+            "price": 25
+        },
+        "p3": {
+            "icon": "🥪",
+            "name": "Un Sándwich",
+            "price": 35
+        }
+    },
+    "googleSitesUrl": "",
+    "googleAdsId": "",
+    "customPatchCode": "",
+    "estadisticas": {
+        "visitasTotales": 1,
+        "lectoresUnicos": [
+            "god.of.devil.aut@gmail.com"
+        ],
+        "meses": {
+            "Julio 2026": 1
+        },
+        "diasSemana": {
+            "Lunes": 0,
+            "Martes": 0,
+            "Miércoles": 1,
+            "Jueves": 0,
+            "Viernes": 0,
+            "Sábado": 0,
+            "Domingo": 0
+        }
+    },
+    "visualizacionesNovelas": {
+        "1": 0
+    },
+    "categorias": [
+        "Reino Femenino",
+        "Fantasía",
+        "General"
+    ],
+    "novelas": [
+        {
+            "id": "1",
+            "title": "Suave y Lindo Conejo Demonio",
+            "originalTitle": "Soft and Cute Demon Rabbit",
+            "originalAuthor": "Autor Desconocido",
+            "categoria": "Reino Femenino",
+            "totalChapters": 120,
+            "coverImage": null,
+            "synopsis": "Esta es una historia feliz de una vida feliz... ¡El protagonista masculino es débil y delicioso!",
+            "author": "Godofdevil",
+            "translationStatus": "En Traducción"
+        }
+    ],
+    "capitulos": [
+        {
+            "id": "1",
+            "novelasId": "1",
+            "title": "Capítulo 1: Por Favor no te Comas mi Mascota",
+            "content": "El viento de la noche acariciaba las montañas...",
+            "pov": "Protagonista",
+            "isVip": false
+        },
+        {
+            "id": "2",
+            "novelasId": "1",
+            "title": "Capítulo 2: Hacia el Reino (VIP)",
+            "content": "Contenido exclusivo VIP del capítulo 2...",
+            "pov": "Protagonista",
+            "isVip": true
+        }
+    ],
+    "comentarios": {
+        "1": [
+            {
+                "autor": "LectorX",
+                "texto": "¡Me encantó este capítulo!"
             }
-        };
+        ]
+    },
+    "comentariosNovelas": {
+        "1": [
+            {
+                "autor": "LectorFan",
+                "texto": "¡Esta novela es hermosa! La recomiendo totalmente."
+            }
+        ]
+    }
+};
 
         let db;
         try {
@@ -2821,5 +2966,6 @@
             }
         }
     </script>
-</body>
-</html>
+
+
+</body></html>
