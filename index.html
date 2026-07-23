@@ -415,14 +415,14 @@
             <button onclick="showScreen('inicio')">Inicio</button>
             <button onclick="showScreen('categorias')">Categorías</button>
             <button onclick="showScreen('biblioteca')" id="nav-btn-biblio" style="display: inline-block;">📚 Mi Biblioteca</button>
-            <button onclick="showScreen('membresia')" id="nav-btn-vip-tab" style="display: none;">👑 Membresía</button>
+            <button onclick="showScreen('membresia')" id="nav-btn-vip-tab" style="display: inline-block;">👑 Membresía</button>
             <button onclick="showScreen('login')" id="btn-login-state">⚙️ Panel Admin</button>
             <div id="admin-mode-container" style="display:inline-block;"><button class="btn-admin-switch" onclick="alternarVistaAdminLector()">👑 Cambiar a Lector</button></div>
         </div>
     </nav>
 
     <!-- PANTALLA: INICIO -->
-    <div id="scr-inicio" class="screen active">
+    <div id="scr-inicio" class="screen">
         <div id="inicio-bienvenida" style="padding: 20px; border-radius: 8px; margin-bottom: 20px;">
             <h2 style="margin-top:0;">✨ ¡Bienvenido a CNovel!</h2>
             <p id="txt-bienvenida">Tu plataforma favorita para leer las mejores traducciones y novelas web independientes.</p>
@@ -480,12 +480,12 @@
     </div>
 
     <!-- PANTALLA: MEMBRESÍA PÚBLICA -->
-    <div id="scr-membresia" class="screen">
+    <div id="scr-membresia" class="screen active">
         <div class="vip-banner" style="border-style: solid !important;">
             <h2 style="color:var(--color-vip); margin-top:0;" id="vip-page-title">👑 Pásate a Miembros VIP</h2>
             <p id="vip-page-desc">Desbloquea todos los capítulos exclusivos con una sola membresía.</p>
             <div id="vip-status-box" style="margin: 15px 0; font-weight: bold;"><span style="color:#137333;">✓ ¡Cuenta de Administradora con Acceso VIP Libre Permanente!</span></div>
-            <a href="https://www.paypal.me/Godofdevil/50" id="vip-public-pay-btn" class="btn btn-vip" target="_blank" style="text-decoration:none; display:inline-block; font-size:16px; padding:12px 25px;">Adquirir Membresía Ahora</a>
+            <a href="https://www.paypal.me/Godofdevil/30" id="vip-public-pay-btn" class="btn btn-vip" target="_blank" style="text-decoration:none; display:inline-block; font-size:16px; padding:12px 25px;">Adquirir Membresía Ahora</a>
         </div>
 
         <div class="book-folder" style="margin-top: 30px;">
@@ -1038,7 +1038,7 @@
                 <div style="background: var(--bg-base); padding: 15px; border-radius: 8px; border: 1px solid var(--border);">
                     <span style="font-size: 24px;">👀</span>
                     <h4 style="margin: 5px 0 0 0; color: var(--text-muted);">Visitas Totales Reales</h4>
-                    <p id="stat-total-visits" style="font-size: 24px; font-weight: bold; color: var(--color-primary); margin: 5px 0 0 0;">7</p>
+                    <p id="stat-total-visits" style="font-size: 24px; font-weight: bold; color: var(--color-primary); margin: 5px 0 0 0;">9</p>
                 </div>
                 <div style="background: var(--bg-base); padding: 15px; border-radius: 8px; border: 1px solid var(--border);">
                     <span style="font-size: 24px;">👥</span>
@@ -1051,7 +1051,7 @@
             <div id="lista-stats-meses" style="margin-bottom: 25px;">
                         <div class="item-admin-list">
                             <span>📅 <strong>Julio 2026</strong></span>
-                            <span><strong>7</strong> visitas</span>
+                            <span><strong>9</strong> visitas</span>
                         </div></div>
 
             <h4>🗓️ Visitas Desglosadas por Día de la Semana</h4>
@@ -1070,7 +1070,7 @@
                     </div>
                     <div class="item-admin-list">
                         <span>🗓️ <strong>Jueves</strong></span>
-                        <span><strong>5</strong> visitas</span>
+                        <span><strong>7</strong> visitas</span>
                     </div>
                     <div class="item-admin-list">
                         <span>🗓️ <strong>Viernes</strong></span>
@@ -1105,7 +1105,7 @@
                 </div>
                 <div style="display:flex; gap:10px;">
                     <button class="btn" style="background:#5f6368;" onclick="copiarDominioWeb()">📋 Copiar Enlace</button>
-                    <a id="admin-visit-link" href="https://godofdevilaut-arch.github.io/c-novel-5894d4/?v=1784818401664" target="_blank" class="btn" style="text-decoration:none; text-align:center; background:#137333;">🌐 Visitar</a>
+                    <a id="admin-visit-link" href="https://godofdevilaut-arch.github.io/c-novel-5894d4/?v=1784826969788" target="_blank" class="btn" style="text-decoration:none; text-align:center; background:#137333;">🌐 Visitar</a>
                 </div>
             </div>
             <p style="font-size:13px; color:var(--text-muted); margin-top:10px;">💡 <strong>Nota:</strong> Puedes cambiar este texto por tu propio dominio personalizado (ej. <i>https://tucorreo.com</i>) y se actualizará automáticamente en los accesos.</p>
@@ -1194,11 +1194,11 @@
     "paypalUser": "Godofdevil",
     "customDomainUrl": "https://godofdevilaut-arch.github.io/c-novel-5894d4/",
     "vipConfig": {
-        "active": false,
+        "active": true,
         "title": "👑 Pásate a Miembros VIP",
         "desc": "Desbloquea todos los capítulos exclusivos con una sola membresía.",
-        "durationDays": 30,
-        "price": 50
+        "durationDays": 90,
+        "price": 30
     },
     "equipoTraduccion": [],
     "reportesPago": [],
@@ -1226,18 +1226,18 @@
     "googleAdsId": "",
     "customPatchCode": "",
     "estadisticas": {
-        "visitasTotales": 7,
+        "visitasTotales": 9,
         "lectoresUnicos": [
             "god.of.devil.aut@gmail.com"
         ],
         "meses": {
-            "Julio 2026": 7
+            "Julio 2026": 9
         },
         "diasSemana": {
             "Lunes": 0,
             "Martes": 0,
             "Miércoles": 2,
-            "Jueves": 5,
+            "Jueves": 7,
             "Viernes": 0,
             "Sábado": 0,
             "Domingo": 0
