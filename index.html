@@ -38,7 +38,6 @@
             user-select: text;
         }
 
-        /* --- TEMAS GLOBALES DE PÁGINA --- */
         body.theme-claro {
             --bg-base: #f8f9fa;
             --bg-card: #ffffff;
@@ -71,7 +70,6 @@
             --border: #333333;
         }
 
-        /* Etiquetas de estado personalizadas */
         .badge-estado-traduccion {
             display: inline-block; padding: 3px 10px; border-radius: 6px;
             font-size: 13px; font-weight: bold; margin-top: 4px;
@@ -80,7 +78,6 @@
         .estado-finalizada { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
         .estado-abandonada { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
 
-        /* Navegación */
         nav.main-nav {
             background-color: var(--bg-card);
             border-bottom: 1px solid var(--border);
@@ -109,11 +106,9 @@
             font-size: 15px;
         }
 
-        /* Contenedores de Pantallas */
         .screen { display: none; padding: 20px; max-width: 800px; margin: 0 auto; }
         .screen.active { display: block !important; }
 
-        /* Estilos generales de tarjetas */
         .book-folder, #inicio-bienvenida, .admin-section, .book-card-click, .reader-box, .seccion-apoyo, .producto-card, .item-admin-list, .vip-banner, .comment-box, .account-box, .custom-modal-content {
             background-color: var(--bg-card) !important;
             border: 1px solid var(--border) !important;
@@ -169,7 +164,6 @@
             font-weight: normal;
         }
 
-        /* Formularios y Botones */
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
         .form-group input, .form-group textarea, .form-group select {
@@ -204,7 +198,6 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        /* MODAL PERSONALIZADO SÚPER MONO */
         .custom-modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -232,7 +225,6 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        /* SUB-MENÚ DE ADMINISTRACIÓN UNIFICADO */
         .admin-tabs {
             display: flex;
             gap: 8px;
@@ -257,7 +249,6 @@
             border-radius: 8px; margin-bottom: 15px; cursor: pointer; display: flex; align-items: center; padding: 15px;
         }
 
-        /* ESTUDIO DE ESCRITURA AVANZADO */
         .writing-toolbar {
             display: flex;
             gap: 8px;
@@ -969,7 +960,6 @@
             <button class="btn" onclick="guardarPaypal()">Guardar Configuración</button>
         </div>
 
-        <!-- ESTADÍSTICAS DIVIDIDAS POR MESES Y DÍAS DE LA SEMANA -->
         <div id="tab-stats" class="admin-section">
             <h3>📊 Estadísticas de Visitas (Por Meses y Días de la Semana)</h3>
             <p style="color:var(--text-muted); font-size:14px;">Seguimiento detallado del tráfico real registrado en la plataforma.</p>
@@ -997,7 +987,6 @@
             <div id="lista-stats-novelas"></div>
         </div>
 
-        <!-- DOMINIO DE SITIO WEB FUNCIONAL Y OPCIÓN DE CAMBIO -->
         <div id="tab-dominio" class="admin-section">
             <h3>🌐 Dominio Web Oficial y Cambio de Dominio</h3>
             <p style="color:var(--text-muted); font-size:14px;">Configura y personaliza el enlace o dominio web oficial de tu plataforma:</p>
@@ -1043,7 +1032,6 @@
         </div>
     </div>
 
-    <!-- VENTANA MODAL PARA REPORTAR ERROR EN CAPÍTULOS -->
     <div id="modal-reporte-error" class="custom-modal-overlay">
         <div class="custom-modal-content" style="max-width:380px; text-align:left;">
             <span style="font-size: 32px; display: block; text-align:center; margin-bottom: 5px;">⚠️</span>
@@ -1060,7 +1048,6 @@
         </div>
     </div>
 
-    <!-- VENTANA MODAL PERSONALIZADA GENERAL (MONA) -->
     <div id="custom-modal-alert" class="custom-modal-overlay">
         <div class="custom-modal-content">
             <span id="modal-alert-icon" style="font-size: 36px; display: block; margin-bottom: 10px;">✨</span>
@@ -1070,7 +1057,6 @@
         </div>
     </div>
 
-    <!-- VENTANA MODAL PERSONALIZADA (CIERRE DE SESIÓN MONO) -->
     <div id="modal-cerrar-sesion" class="custom-modal-overlay">
         <div class="custom-modal-content">
             <span style="font-size: 36px; display: block; margin-bottom: 10px;">👋</span>
@@ -1087,9 +1073,7 @@
         const MASTER_EMAIL = "god.of.devil.aut@gmail.com";
         const MASTER_PASS = "Godofdevil12";
         const MASTER_USER = "Godofdevil";
-
-        // Control de versión estricto para evitar caché en lectores
-        const APP_VERSION = "1.1.0";
+        const APP_VERSION = "1.1.1";
 
         const defaultDb = {
             textoBienvenida: "Tu plataforma favorita para leer las mejores traducciones y novelas web independientes.",
@@ -1154,7 +1138,6 @@
             const rawDb = localStorage.getItem('cnovel_db');
             db = rawDb ? JSON.parse(rawDb) : defaultDb;
         } catch (e) {
-            console.warn("Base de datos corrupta detectada. Restableciendo por seguridad.");
             db = defaultDb;
             localStorage.setItem('cnovel_db', JSON.stringify(defaultDb));
         }
@@ -1370,6 +1353,11 @@
         }
 
         function showScreen(screenId) {
+            // Si la membresía está desactivada y el usuario intenta entrar a ella, redirigir a inicio
+            if (screenId === 'membresia' && (!db.vipConfig || !db.vipConfig.active)) {
+                screenId = 'inicio';
+            }
+
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             const targetScreen = document.getElementById('scr-' + screenId);
             if(targetScreen) {
@@ -1651,11 +1639,19 @@
             document.getElementById('admin-google-ads').value = db.googleAdsId || "";
             document.getElementById('admin-custom-patch').value = db.customPatchCode || "";
 
-            document.getElementById('admin-vip-active').checked = db.vipConfig.active;
-            document.getElementById('admin-vip-title-input').value = db.vipConfig.title || "";
-            document.getElementById('admin-vip-desc-input').value = db.vipConfig.desc || "";
-            document.getElementById('admin-vip-duration').value = db.vipConfig.durationDays;
-            document.getElementById('admin-vip-price').value = db.vipConfig.price;
+            if (db.vipConfig) {
+                document.getElementById('admin-vip-active').checked = db.vipConfig.active;
+                document.getElementById('admin-vip-title-input').value = db.vipConfig.title || "";
+                document.getElementById('admin-vip-desc-input').value = db.vipConfig.desc || "";
+                document.getElementById('admin-vip-duration').value = db.vipConfig.durationDays;
+                document.getElementById('admin-vip-price').value = db.vipConfig.price;
+            }
+
+            // Ocultar o mostrar el botón de Membresía en la barra de navegación global según configuración
+            const vipNavBtn = document.getElementById('nav-btn-vip-tab');
+            if (vipNavBtn) {
+                vipNavBtn.style.display = (db.vipConfig && db.vipConfig.active) ? 'inline-block' : 'none';
+            }
 
             document.getElementById('admin-apoyo-titulo').value = db.apoyoConfig.titulo;
             document.getElementById('admin-apoyo-desc').value = db.apoyoConfig.desc;
@@ -1688,8 +1684,6 @@
             document.getElementById('pay-link-galleta').href = `https://www.paypal.me/${pUser}/${db.apoyoConfig.p1.price}`;
             document.getElementById('pay-link-cafe').href = `https://www.paypal.me/${pUser}/${db.apoyoConfig.p2.price}`;
             document.getElementById('pay-link-sandwich').href = `https://www.paypal.me/${pUser}/${db.apoyoConfig.p3.price}`;
-
-            document.getElementById('nav-btn-vip-tab').style.display = db.vipConfig.active ? 'inline-block' : 'none';
 
             const listaEquipo = document.getElementById('lista-equipo-colaboradores');
             listaEquipo.innerHTML = "";
@@ -1973,7 +1967,7 @@
             } else {
                 capsFiltrados.forEach(cap => {
                     const yaLeido = leidos.includes(String(cap.id)) ? "read" : "";
-                    const badgeVip = (cap.isVip && db.vipConfig.active) ? `<span style="background:var(--color-vip); color:white; padding:2px 8px; border-radius:4px; font-size:11px; margin-left:8px;">VIP 🔒</span>` : "";
+                    const badgeVip = (cap.isVip && db.vipConfig && db.vipConfig.active) ? `<span style="background:var(--color-vip); color:white; padding:2px 8px; border-radius:4px; font-size:11px; margin-left:8px;">VIP 🔒</span>` : "";
                     
                     let adminBtns = "";
                     if(esAdmin) {
@@ -2069,7 +2063,7 @@
             let emailKey = usuarioActual ? usuarioActual.email : 'invitado';
             const esAdminReal = usuarioActual && usuarioActual.email === MASTER_EMAIL;
 
-            if(db.vipConfig.active && cap.isVip && (!esAdminReal || adminVistaModo !== 'admin')) {
+            if(db.vipConfig && db.vipConfig.active && cap.isVip && (!esAdminReal || adminVistaModo !== 'admin')) {
                 let tieneVipLibre = tieneAccesoVip(usuarioActual ? usuarioActual.email : null);
 
                 if(!tieneVipLibre) {
@@ -2313,6 +2307,11 @@
         }
 
         function renderizarPantallaMembresiaPublica() {
+            if (!db.vipConfig || !db.vipConfig.active) {
+                showScreen('inicio');
+                return;
+            }
+
             document.getElementById('vip-page-title').innerText = db.vipConfig.title || "👑 Pásate a Miembros VIP";
             document.getElementById('vip-page-desc').innerText = db.vipConfig.desc || "Desbloquea todos los capítulos exclusivos con una sola membresía.";
 
@@ -2742,7 +2741,7 @@
 
         function guardarPaypal() {
             const userPaypal = document.getElementById('admin-paypal-user').value.trim();
-            if(!userPaypal) return mostrarAlertaMono("Vacío", "Por favor escribe tu usuario.", "⚠️");
+            if(!userPaypanel) return mostrarAlertaMono("Vacío", "Por favor escribe tu usuario.", "⚠️");
             db.paypalUser = userPaypal;
             guardarDB();
             mostrarAlertaMono("¡Actualizado!", "Enlaces de PayPal actualizados!", "💰");
