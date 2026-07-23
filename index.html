@@ -415,7 +415,7 @@
             <button onclick="showScreen('inicio')">Inicio</button>
             <button onclick="showScreen('categorias')">Categorías</button>
             <button onclick="showScreen('biblioteca')" id="nav-btn-biblio" style="display: inline-block;">📚 Mi Biblioteca</button>
-            <button onclick="showScreen('membresia')" id="nav-btn-vip-tab" style="display: none;">👑 Membresía</button>
+            <button onclick="showScreen('membresia')" id="nav-btn-vip-tab" style="display: inline-block;">👑 Membresía</button>
             <button onclick="showScreen('login')" id="btn-login-state">⚙️ Panel Admin</button>
             <div id="admin-mode-container" style="display:inline-block;"><button class="btn-admin-switch" onclick="alternarVistaAdminLector()">👑 Cambiar a Lector</button></div>
         </div>
@@ -1038,7 +1038,7 @@
                 <div style="background: var(--bg-base); padding: 15px; border-radius: 8px; border: 1px solid var(--border);">
                     <span style="font-size: 24px;">👀</span>
                     <h4 style="margin: 5px 0 0 0; color: var(--text-muted);">Visitas Totales Reales</h4>
-                    <p id="stat-total-visits" style="font-size: 24px; font-weight: bold; color: var(--color-primary); margin: 5px 0 0 0;">9</p>
+                    <p id="stat-total-visits" style="font-size: 24px; font-weight: bold; color: var(--color-primary); margin: 5px 0 0 0;">10</p>
                 </div>
                 <div style="background: var(--bg-base); padding: 15px; border-radius: 8px; border: 1px solid var(--border);">
                     <span style="font-size: 24px;">👥</span>
@@ -1051,7 +1051,7 @@
             <div id="lista-stats-meses" style="margin-bottom: 25px;">
                         <div class="item-admin-list">
                             <span>📅 <strong>Julio 2026</strong></span>
-                            <span><strong>9</strong> visitas</span>
+                            <span><strong>10</strong> visitas</span>
                         </div></div>
 
             <h4>🗓️ Visitas Desglosadas por Día de la Semana</h4>
@@ -1070,7 +1070,7 @@
                     </div>
                     <div class="item-admin-list">
                         <span>🗓️ <strong>Jueves</strong></span>
-                        <span><strong>7</strong> visitas</span>
+                        <span><strong>8</strong> visitas</span>
                     </div>
                     <div class="item-admin-list">
                         <span>🗓️ <strong>Viernes</strong></span>
@@ -1105,7 +1105,7 @@
                 </div>
                 <div style="display:flex; gap:10px;">
                     <button class="btn" style="background:#5f6368;" onclick="copiarDominioWeb()">📋 Copiar Enlace</button>
-                    <a id="admin-visit-link" href="https://godofdevilaut-arch.github.io/c-novel-5894d4/?v=1784828954218" target="_blank" class="btn" style="text-decoration:none; text-align:center; background:#137333;">🌐 Visitar</a>
+                    <a id="admin-visit-link" href="https://godofdevilaut-arch.github.io/c-novel-5894d4/?v=1784836933011" target="_blank" class="btn" style="text-decoration:none; text-align:center; background:#137333;">🌐 Visitar</a>
                 </div>
             </div>
             <p style="font-size:13px; color:var(--text-muted); margin-top:10px;">💡 <strong>Nota:</strong> Puedes cambiar este texto por tu propio dominio personalizado (ej. <i>https://tucorreo.com</i>) y se actualizará automáticamente en los accesos.</p>
@@ -1194,7 +1194,7 @@
     "paypalUser": "Godofdevil",
     "customDomainUrl": "https://godofdevilaut-arch.github.io/c-novel-5894d4/",
     "vipConfig": {
-        "active": false,
+        "active": true,
         "title": "👑 Pásate a Miembros VIP",
         "desc": "Desbloquea todos los capítulos exclusivos con una sola membresía.",
         "durationDays": 90,
@@ -1226,18 +1226,18 @@
     "googleAdsId": "",
     "customPatchCode": "",
     "estadisticas": {
-        "visitasTotales": 9,
+        "visitasTotales": 10,
         "lectoresUnicos": [
             "god.of.devil.aut@gmail.com"
         ],
         "meses": {
-            "Julio 2026": 9
+            "Julio 2026": 10
         },
         "diasSemana": {
             "Lunes": 0,
             "Martes": 0,
             "Miércoles": 2,
-            "Jueves": 7,
+            "Jueves": 8,
             "Viernes": 0,
             "Sábado": 0,
             "Domingo": 0
@@ -3032,4 +3032,5 @@
             console.log("Base de datos cargada correctamente:", db);
         });
     </script>
+
 </body></html>
