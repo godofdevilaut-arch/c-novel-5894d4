@@ -644,6 +644,16 @@
     <div id="scr-admin" class="screen">
         <h2>👑 Panel Maestro de Creadora: Godofdevil</h2>
         
+        <!-- NUEVO BOTÓN DE SINCRONIZACIÓN -->
+        <div style="background: #e6f4ea; border: 1px solid #137333; padding: 15px; border-radius: 12px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <div>
+                <h3 style="margin: 0; color: #137333;">☁️ Guardado en la Nube (GitHub)</h3>
+                <p style="margin: 5px 0 0 0; font-size: 14px; color: #5f6368;">Al terminar de hacer cambios (novelas, capítulos, configuraciones), presiona este botón para publicarlos oficialmente.</p>
+            </div>
+            <button class="btn" style="background: #137333; font-size: 15px; padding: 12px 20px;" onclick="sincronizarConGitHub()">🚀 Sincronizar Cambios</button>
+        </div>
+        <!-- FIN DEL NUEVO BOTÓN -->
+        
         <div class="admin-tabs">
             <button class="tab-btn active" onclick="switchAdminTab('tab-inicio')">🏠 Inicio</button>
             <button class="tab-btn" onclick="switchAdminTab('tab-cats')">🏷️ Categorías</button>
@@ -1353,7 +1363,6 @@
         }
 
         function showScreen(screenId) {
-            // Si la membresía está desactivada y el usuario intenta entrar a ella, redirigir a inicio
             if (screenId === 'membresia' && (!db.vipConfig || !db.vipConfig.active)) {
                 screenId = 'inicio';
             }
@@ -1403,7 +1412,6 @@
         function verificarRecordatorioInicioSesion() {
             let cuentasGuardadas = JSON.parse(localStorage.getItem('cnovel_saved_accounts')) || [];
             if(cuentasGuardadas.length > 0 && !usuarioActual) {
-                // Hay recordatorio disponible
             }
         }
 
@@ -1647,7 +1655,6 @@
                 document.getElementById('admin-vip-price').value = db.vipConfig.price;
             }
 
-            // Ocultar o mostrar el botón de Membresía en la barra de navegación global según configuración
             const vipNavBtn = document.getElementById('nav-btn-vip-tab');
             if (vipNavBtn) {
                 vipNavBtn.style.display = (db.vipConfig && db.vipConfig.active) ? 'inline-block' : 'none';
@@ -2741,7 +2748,7 @@
 
         function guardarPaypal() {
             const userPaypal = document.getElementById('admin-paypal-user').value.trim();
-            if(!userPaypanel) return mostrarAlertaMono("Vacío", "Por favor escribe tu usuario.", "⚠️");
+            if(!userPaypal) return mostrarAlertaMono("Vacío", "Por favor escribe tu usuario.", "⚠️");
             db.paypalUser = userPaypal;
             guardarDB();
             mostrarAlertaMono("¡Actualizado!", "Enlaces de PayPal actualizados!", "💰");
